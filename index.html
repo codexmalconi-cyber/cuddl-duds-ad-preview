@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuddl Duds Google Search Ads - Live SERP Previews</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    .google-blue {
+      color: #1a0dab;
+    }
+    .google-blue:hover {
+      text-decoration: underline;
+    }
+    .google-url {
+      color: #202124;
+    }
+    .google-desc {
+      color: #4d5156;
+    }
+    .google-sponsored {
+      color: #202124;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .sitelink-title {
+      color: #1a0dab;
+      font-weight: 500;
+    }
+    .sitelink-title:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-6 antialiased">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header Controls -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div>
+          <h1 class="text-xl font-bold text-slate-900 tracking-tight">Cuddl Duds • Google Ads Live SERP Simulator</h1>
+          <p class="text-xs text-slate-500 mt-1">Realistic preview of hybrid responsive search ad assemblies across desktop and mobile.</p>
+        </div>
+        <!-- Device Switcher -->
+        <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200 self-start sm:self-auto">
+          <button id="btn-desktop" onclick="setDevice('desktop')" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-slate-900 shadow-sm transition">
+            🖥️ Desktop (3H + 2D)
+          </button>
+          <button id="btn-mobile" onclick="setDevice('mobile')" class="px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition">
+            📱 Mobile (2H + 1D)
+          </button>
+        </div>
+      </div>
+
+      <!-- Segment Tabs -->
+      <div class="flex flex-wrap gap-2 pt-4">
+        <button id="tab-core" onclick="setSegment('core')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 border border-indigo-200 text-indigo-700 transition">
+          1. Core (Homepage)
+        </button>
+        <button id="tab-general" onclick="setSegment('general')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
+          2. General (Best Sellers)
+        </button>
+        <button id="tab-sleepwear" onclick="setSegment('sleepwear')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
+          3. Sleepwear (PJs & Sets)
+        </button>
+        <button id="tab-scrubs" onclick="setSegment('scrubs')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
+          4. Scrubs (Medical Workwear)
+        </button>
+      </div>
+    </div>
+
+    <!-- Preview Container Frame -->
+    <div id="preview-wrapper" class="transition-all duration-300 mx-auto">
+      <!-- Search Engine UI Mockup -->
+      <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <!-- Mock Google Search Bar -->
+        <div class="bg-white border-b border-slate-100 px-5 py-3 flex items-center gap-3">
+          <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500">
+            G
+          </div>
+          <div class="flex-1 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-slate-700 flex items-center justify-between shadow-inner">
+            <span id="mock-query" class="font-medium">cuddl duds official site</span>
+            <span class="text-slate-400">🔍</span>
+          </div>
+        </div>
+
+        <!-- SERP Results Body -->
+        <div class="p-6">
+          <div id="ad-card" class="max-w-2xl">
+            <!-- URL / Favicon Header -->
+            <div class="flex items-center gap-2 mb-1">
+              <div class="w-5 h-5 rounded-full bg-slate-800 flex items-center justify-center text-[10px] text-white font-bold tracking-tighter">
+                CD
+              </div>
+              <div class="flex flex-col">
+                <span class="text-xs font-bold text-slate-900 leading-none">Cuddl Duds</span>
+                <span id="ad-display-url" class="text-[11px] text-slate-500 leading-normal">https://cuddlduds.com</span>
+              </div>
+              <div class="ml-auto text-xs text-slate-400 font-bold">⋮</div>
+            </div>
+
+            <!-- Sponsored Badge -->
+            <div class="mb-1">
+              <span class="google-sponsored">Sponsored</span>
+            </div>
+
+            <!-- Ad Headline -->
+            <h2 id="ad-headline" class="text-lg md:text-xl font-normal leading-snug cursor-pointer google-blue mb-1">
+              Cuddl Duds Official Site | Over 50 Years of Comfort | Live In Everyday Layers
+            </h2>
+
+            <!-- Ad Description -->
+            <p id="ad-description" class="google-desc text-xs md:text-sm leading-relaxed mb-3">
+              Welcome to the official Cuddl Duds website. Shop authentic warm layers and cozy clothing. Explore the full collection of warm, cozy layers. Head-to-toe comfort for everyday living.
+            </p>
+
+            <!-- Sitelink Extensions -->
+            <div id="sitelinks-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-slate-100">
+              <!-- Sitelink 1 -->
+              <div class="sitelink-item">
+                <div id="sl1-title" class="sitelink-title text-xs md:text-sm cursor-pointer">Women's Warm Layers</div>
+                <div id="sl1-desc" class="google-desc text-[11px] leading-tight mt-0.5">Shop ultra-soft base layers, fleece tops, and leggings.</div>
+              </div>
+              <!-- Sitelink 2 -->
+              <div class="sitelink-item">
+                <div id="sl2-title" class="sitelink-title text-xs md:text-sm cursor-pointer">Men's Comfort Collection</div>
+                <div id="sl2-desc" class="google-desc text-[11px] leading-tight mt-0.5">Explore crewneck tops, thermal pants, and cozy layers.</div>
+              </div>
+              <!-- Sitelink 3 -->
+              <div class="sitelink-item">
+                <div id="sl3-title" class="sitelink-title text-xs md:text-sm cursor-pointer">Best Sellers Lineup</div>
+                <div id="sl3-desc" class="google-desc text-[11px] leading-tight mt-0.5">Customer favorite warm layers built for real everyday life.</div>
+              </div>
+              <!-- Sitelink 4 -->
+              <div class="sitelink-item">
+                <div id="sl4-title" class="sitelink-title text-xs md:text-sm cursor-pointer">Find Your Warmth Tier</div>
+                <div id="sl4-desc" class="google-desc text-[11px] leading-tight mt-0.5">Discover Warm, Warmer, and Warmest fabric levels.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strategy Notes & Explanations -->
+    <div class="mt-6 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm text-xs text-slate-600">
+      <div class="flex items-center gap-2 mb-2 font-semibold text-slate-800">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Google RSA Hybrid Logic Breakdown:</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+          <span class="font-bold text-slate-900 block mb-1">Headline 1 (Pinned Pos 1)</span>
+          Always anchors the exact search keyword (e.g. brand, category, or product name) to guarantee high Quality Score and CTR.
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+          <span class="font-bold text-slate-900 block mb-1">Headlines 2 & 3 (Unpinned)</span>
+          Google's machine learning dynamically tests 11 unpinned value-props (50+ years heritage, 4-way stretch, warmth without bulk).
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+          <span class="font-bold text-slate-900 block mb-1">Descriptions (100% Unpinned)</span>
+          Desktop combines 2 descriptions (up to 180 chars total); Mobile serves 1 full description (up to 90 chars) for maximum speed.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSegment = 'core';
+    let currentDevice = 'desktop';
+
+    const data = {
+      core: {
+        query: 'cuddl duds official site',
+        url: 'https://cuddlduds.com',
+        desktopHeadline: 'Cuddl Duds Official Site | Over 50 Years of Comfort | Live In Everyday Layers',
+        mobileHeadline: 'Cuddl Duds Official Site | Over 50 Years of Comfort',
+        desktopDesc: 'Welcome to the official Cuddl Duds website. Shop authentic warm layers and cozy clothing. Explore the full collection of warm, cozy layers. Head-to-toe comfort for everyday living.',
+        mobileDesc: 'Welcome to the official Cuddl Duds website. Shop authentic warm layers and cozy clothing.',
+        sitelinks: [
+          { title: "Women's Warm Layers", desc: "Shop ultra-soft base layers, fleece tops, and leggings." },
+          { title: "Men's Comfort Collection", desc: "Explore crewneck tops, thermal pants, and cozy layers." },
+          { title: "Best Sellers Lineup", desc: "Customer favorite warm layers built for real everyday life." },
+          { title: "Find Your Warmth Tier", desc: "Discover Warm, Warmer, and Warmest fabric levels." }
+        ]
+      },
+      general: {
+        query: 'cuddl duds clothing',
+        url: 'https://cuddlduds.com › collections › all',
+        desktopHeadline: 'Shop Cuddl Duds Fleecewear | Warmth Without Any Bulk | Cuddl Duds Tops & Pants',
+        mobileHeadline: 'Shop Cuddl Duds Fleecewear | Warmth Without Any Bulk',
+        desktopDesc: 'Explore best-selling Cuddl Duds base layers, Fleecewear tops, thermal wear, and outfits. Double-brushed for superior softness with flexible 4-way stretch that moves with you.',
+        mobileDesc: 'Explore best-selling Cuddl Duds base layers, Fleecewear tops, thermal wear, and outfits.',
+        sitelinks: [
+          { title: "Fleecewear with Stretch", desc: "Double-brushed plush tops and bottoms for cold days." },
+          { title: "Everyday Base Layers", desc: "Warmth without bulk designed to layer smoothly under clothes." },
+          { title: "Women's Tops & Shirts", desc: "Ultra-soft crewnecks, turtlenecks, and long sleeve tops." },
+          { title: "Cozy Pants & Leggings", desc: "Flexible 4-way stretch bottoms built for all-day ease." }
+        ]
+      },
+      sleepwear: {
+        query: 'cuddl duds pajamas',
+        url: 'https://cuddlduds.com › collections › sleepwear',
+        desktopHeadline: 'Cuddl Duds Pajamas | Ultra-Soft Sleepwear & PJs | Matching 2-Piece Sets',
+        mobileHeadline: 'Cuddl Duds Pajamas | Ultra-Soft Sleepwear & PJs',
+        desktopDesc: 'Turn your evening routine into a comfort ritual with ultra-soft Cuddl Duds pajama sets. Cozy warm or cooling: explore breathable sleepwear and pajama pants made for every sleeper.',
+        mobileDesc: 'Turn your evening routine into a comfort ritual with ultra-soft Cuddl Duds pajama sets.',
+        sitelinks: [
+          { title: "Matching 2-Piece PJ Sets", desc: "Coordinated pajama sets for effortless bedtime comfort." },
+          { title: "Relaxed Fit Sleep Pants", desc: "Ultra-comfy lounge and pajama pants with gentle elastic waists." },
+          { title: "Breathable Cooling Knits", desc: "Lightweight sleepwear engineered for hot sleepers." },
+          { title: "Holiday Pajama Gifting", desc: "Gift-ready cozy sleep sets for everyone on your list." }
+        ]
+      },
+      scrubs: {
+        query: 'cuddl duds scrubs',
+        url: 'https://cuddlduds.com › collections › scrubs',
+        desktopHeadline: 'Cuddl Duds Scrubs | Comfort for 12-Hour Shifts | Flexible 4-Way Stretch',
+        mobileHeadline: 'Cuddl Duds Scrubs | Comfort for 12-Hour Shifts',
+        desktopDesc: 'Cuddl Duds knows layers: discover super-soft medical scrubs, scrub pants, and underscrubs. Engineered with 4-way stretch and breathable softness for comfort on every 12-hour shift.',
+        mobileDesc: 'Cuddl Duds knows layers: discover super-soft medical scrubs, scrub pants, and underscrubs.',
+        sitelinks: [
+          { title: "Cargo Scrub Pants", desc: "Deep multi-compartment cargo pockets, pen slots & badge loops." },
+          { title: "Underscrub Base Layers", desc: "Smooth, moisture-wicking long sleeve tops for cold hospitals." },
+          { title: "Medical Scrub Tops", desc: "Modern flattering cuts designed with flexible 4-way stretch." },
+          { title: "Easy-Care Workwear", desc: "Machine-washable fabrics that retain shape shift after shift." }
+        ]
+      }
+    };
+
+    function updateView() {
+      const seg = data[currentSegment];
+      document.getElementById('mock-query').innerText = seg.query;
+      document.getElementById('ad-display-url').innerText = seg.url;
+
+      if (currentDevice === 'desktop') {
+        document.getElementById('ad-headline').innerText = seg.desktopHeadline;
+        document.getElementById('ad-description').innerText = seg.desktopDesc;
+        document.getElementById('preview-wrapper').className = "max-w-3xl transition-all duration-300 mx-auto";
+        document.getElementById('sitelinks-container').className = "grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-slate-100";
+      } else {
+        document.getElementById('ad-headline').innerText = seg.mobileHeadline;
+        document.getElementById('ad-description').innerText = seg.mobileDesc;
+        document.getElementById('preview-wrapper').className = "max-w-sm transition-all duration-300 mx-auto";
+        document.getElementById('sitelinks-container').className = "flex flex-wrap gap-2 pt-2 border-t border-slate-100";
+      }
+
+      // Update sitelinks
+      for (let i = 0; i < 4; i++) {
+        const item = seg.sitelinks[i];
+        document.getElementById(`sl${i+1}-title`).innerText = item.title;
+        document.getElementById(`sl${i+1}-desc`).innerText = item.desc;
+        if (currentDevice === 'mobile') {
+          document.getElementById(`sl${i+1}-desc`).style.display = 'none';
+        } else {
+          document.getElementById(`sl${i+1}-desc`).style.display = 'block';
+        }
+      }
+    }
+
+    function setSegment(seg) {
+      currentSegment = seg;
+      ['core', 'general', 'sleepwear', 'scrubs'].forEach(s => {
+        const btn = document.getElementById(`tab-${s}`);
+        if (s === seg) {
+          btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 border border-indigo-200 text-indigo-700 transition";
+        } else {
+          btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition";
+        }
+      });
+      updateView();
+    }
+
+    function setDevice(device) {
+      currentDevice = device;
+      const btnDesk = document.getElementById('btn-desktop');
+      const btnMob = document.getElementById('btn-mobile');
+      if (device === 'desktop') {
+        btnDesk.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-slate-900 shadow-sm transition";
+        btnMob.className = "px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition";
+      } else {
+        btnDesk.className = "px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition";
+        btnMob.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-slate-900 shadow-sm transition";
+      }
+      updateView();
+    }
+
+    // Initial render
+    updateView();
+  </script>
+</body>
+</html>
