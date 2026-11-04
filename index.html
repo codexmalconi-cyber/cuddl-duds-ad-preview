@@ -38,92 +38,102 @@
     .spin-animate {
       animation: spin-once 0.4s ease-in-out;
     }
+    .fade-out {
+      opacity: 0.3;
+      transition: opacity 0.1s ease-out;
+    }
+    .fade-in {
+      opacity: 1;
+      transition: opacity 0.2s ease-in;
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 p-4 md:p-8 antialiased min-h-screen">
+<body class="bg-slate-100/70 text-slate-800 p-4 md:p-8 antialiased min-h-screen">
   <div class="max-w-4xl mx-auto">
     
-    <!-- Top Control Bar -->
-    <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm mb-6">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <span class="text-xs font-semibold tracking-wider text-slate-500 uppercase">Interactive Ad Review</span>
+    <!-- Unified Minimal SaaS Control Toolbar -->
+    <header class="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-sm mb-6">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        
+        <!-- Left: Brand Title & Segment Tabs -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+          <div class="flex items-center gap-2 pr-2 border-slate-200 sm:border-r">
+            <div class="w-6 h-6 rounded-md bg-slate-900 flex items-center justify-center text-[10px] text-white font-bold tracking-tight">
+              CD
+            </div>
+            <span class="font-bold text-sm text-slate-900 tracking-tight whitespace-nowrap">Cuddl Duds <span class="text-slate-400 font-normal">| Search Ads</span></span>
           </div>
-          <h1 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight mt-0.5">Cuddl Duds • Search Ads SERP Simulator</h1>
-          <p class="text-xs text-slate-500 mt-1">Simulate Google's Responsive Search Ad machine-learning combinations in real time.</p>
+
+          <!-- Segments Segmented Control -->
+          <nav class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl" aria-label="Ad Segments">
+            <button id="tab-core" onclick="setSegment('core')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-900 shadow-sm transition">
+              Core
+            </button>
+            <button id="tab-general" onclick="setSegment('general')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition">
+              General
+            </button>
+            <button id="tab-sleepwear" onclick="setSegment('sleepwear')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition">
+              Sleepwear
+            </button>
+            <button id="tab-scrubs" onclick="setSegment('scrubs')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition">
+              Scrubs
+            </button>
+          </nav>
         </div>
 
-        <!-- Action Buttons (Device + Shuffle) -->
-        <div class="flex flex-wrap items-center gap-2">
-          <!-- Shuffle Button -->
-          <button id="btn-shuffle" onclick="shuffleCombination()" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition active:scale-95">
-            <svg id="shuffle-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-            </svg>
-            <span>Shuffle Combination</span>
-          </button>
-
-          <!-- Device Switcher -->
-          <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200">
-            <button id="btn-desktop" onclick="setDevice('desktop')" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-slate-900 shadow-sm transition">
+        <!-- Right: Actions (Device Switcher + Contextual Shuffle Button) -->
+        <div class="flex items-center gap-2.5 self-end lg:self-auto">
+          <!-- Device Toggle -->
+          <div class="inline-flex rounded-xl bg-slate-100 p-1 border border-slate-200/60">
+            <button id="btn-desktop" onclick="setDevice('desktop')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-900 shadow-sm transition">
               🖥️ Desktop
             </button>
-            <button id="btn-mobile" onclick="setDevice('mobile')" class="px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition">
+            <button id="btn-mobile" onclick="setDevice('mobile')" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition">
               📱 Mobile
             </button>
           </div>
+
+          <!-- Refined Shuffle Button -->
+          <button id="btn-shuffle" onclick="shuffleCombination()" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition active:scale-95" title="Generate another authentic machine-learning combination">
+            <svg id="shuffle-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            <span>Shuffle Ad</span>
+          </button>
         </div>
-      </div>
 
-      <!-- Segment Tabs -->
-      <div class="flex flex-wrap items-center gap-2 pt-4">
-        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">Ad Segments:</span>
-        <button id="tab-core" onclick="setSegment('core')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 border border-indigo-200 text-indigo-700 transition">
-          1. Core (Homepage)
-        </button>
-        <button id="tab-general" onclick="setSegment('general')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
-          2. General (Best Sellers)
-        </button>
-        <button id="tab-sleepwear" onclick="setSegment('sleepwear')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
-          3. Sleepwear (PJs & Sets)
-        </button>
-        <button id="tab-scrubs" onclick="setSegment('scrubs')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
-          4. Scrubs (Medical Uniforms)
-        </button>
       </div>
-    </div>
+    </header>
 
-    <!-- Live Preview Display Area -->
-    <div id="preview-wrapper" class="transition-all duration-300 mx-auto">
-      <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+    <!-- Clean Google SERP Card (No Internal Clutter) -->
+    <main id="preview-wrapper" class="transition-all duration-300 mx-auto">
+      <div class="bg-white border border-slate-200/90 rounded-2xl shadow-sm overflow-hidden">
         
-        <!-- Mock Google Search Bar -->
-        <div class="bg-white border-b border-slate-100 px-5 py-3 flex items-center gap-3">
-          <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500 shadow-inner">
+        <!-- Authentic Google Search Bar -->
+        <div class="bg-white border-b border-slate-100 px-5 py-3.5 flex items-center gap-3">
+          <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500 shadow-inner select-none">
             G
           </div>
-          <div class="flex-1 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-slate-700 flex items-center justify-between shadow-inner">
-            <span id="mock-query" class="font-medium">cuddl duds official site</span>
-            <span class="text-slate-400">🔍</span>
+          <div class="flex-1 bg-white border border-slate-200 rounded-full px-4 py-1.5 text-xs text-slate-700 flex items-center justify-between shadow-sm">
+            <span id="mock-query" class="font-medium text-slate-800">cuddl duds official site</span>
+            <span class="text-slate-400 select-none">🔍</span>
           </div>
         </div>
 
-        <!-- Google SERP Result Body -->
-        <div class="p-6">
+        <!-- Pure Google Search Result Body -->
+        <div class="p-6 md:p-7">
           <div id="ad-card" class="max-w-2xl">
             
             <!-- URL / Favicon Header -->
             <div class="flex items-center gap-2 mb-1">
-              <div class="w-5 h-5 rounded-full bg-slate-900 flex items-center justify-center text-[10px] text-white font-bold tracking-tighter">
+              <div class="w-5 h-5 rounded-full bg-slate-900 flex items-center justify-center text-[10px] text-white font-bold tracking-tighter select-none">
                 CD
               </div>
               <div class="flex flex-col">
                 <span class="text-xs font-bold text-slate-900 leading-none">Cuddl Duds</span>
                 <span id="ad-display-url" class="text-[11px] text-slate-500 leading-normal">https://cuddlduds.com</span>
               </div>
-              <div class="ml-auto text-xs text-slate-400 font-bold">⋮</div>
+              <div class="ml-auto text-xs text-slate-400 font-bold select-none cursor-pointer">⋮</div>
             </div>
 
             <!-- Sponsored Badge -->
@@ -131,13 +141,13 @@
               <span class="google-sponsored">Sponsored</span>
             </div>
 
-            <!-- Ad Headline (Dynamic Hybrid Rotation) -->
-            <h2 id="ad-headline" class="text-lg md:text-xl font-normal leading-snug cursor-pointer google-blue mb-1.5 transition-all">
+            <!-- Ad Headline (Dynamic Responsive Assembly) -->
+            <h2 id="ad-headline" class="text-lg md:text-xl font-normal leading-snug cursor-pointer google-blue mb-1.5 transition-opacity duration-150">
               Cuddl Duds Official Site | Over 50 Years of Comfort | Live In Everyday Layers
             </h2>
 
             <!-- Ad Description -->
-            <p id="ad-description" class="google-desc text-xs md:text-sm leading-relaxed mb-3 transition-all">
+            <p id="ad-description" class="google-desc text-xs md:text-sm leading-relaxed mb-3.5 transition-opacity duration-150">
               Welcome to the official Cuddl Duds website. Shop authentic warm layers and cozy clothing. Explore the full collection of warm, cozy layers. Head-to-toe comfort for everyday living.
             </p>
 
@@ -164,42 +174,8 @@
           </div>
         </div>
 
-        <!-- Dynamic Assembly Tracker Pill (Proves Hybrid Pinning to Client) -->
-        <div class="bg-slate-50 border-t border-slate-100 px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-slate-500">
-          <div class="flex items-center gap-1.5 font-medium text-slate-700">
-            <span class="inline-block w-2 h-2 rounded-full bg-indigo-500"></span>
-            <span>Current RSA Rotation:</span>
-            <span id="active-assembly-info" class="font-mono bg-white border border-slate-200 px-2 py-0.5 rounded text-indigo-700 font-bold">
-              H1 [Slot 01 - Pinned] + H2 [Slot 07] + H3 [Slot 08] | D [Slot 01] + [Slot 04]
-            </span>
-          </div>
-          <span class="text-slate-400">Click "Shuffle Combination" to test another rotation</span>
-        </div>
-
       </div>
-    </div>
-
-    <!-- Educational Breakdown Card -->
-    <div class="mt-6 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm text-xs text-slate-600">
-      <div class="flex items-center gap-2 mb-2 font-semibold text-slate-800">
-        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
-        <span>How Google Assembles This Hybrid Search Ad:</span>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
-        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-          <span class="font-bold text-slate-900 block mb-1">1. Position 1 Anchor (Pinned)</span>
-          Always picks 1 headline from Slots 1–4 to anchor the exact user query. Guarantees 100% Relevance score and prevents irrelevant ad headlines.
-        </div>
-        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-          <span class="font-bold text-slate-900 block mb-1">2. Position 2 & 3 (Unpinned ML)</span>
-          Google's machine learning dynamically tests 11 unpinned value propositions (Slots 5–15: heritage, 4-way stretch, warmth tiers) to maximize CTR.
-        </div>
-        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
-          <span class="font-bold text-slate-900 block mb-1">3. Modular Descriptions</span>
-          Desktop combines 2 descriptions (up to 180 chars); Mobile displays 1 compact description (up to 90 chars) for lightning-fast scanning.
-        </div>
-      </div>
-    </div>
+    </main>
 
   </div>
 
@@ -207,35 +183,35 @@
     let currentSegment = 'core';
     let currentDevice = 'desktop';
 
-    // Comprehensive Copy Bank Matching The Google Sheets Exactly
+    // Comprehensive Copy Bank Matching Approved Google Search Ads Brief
     const campaignData = {
       core: {
         query: 'cuddl duds official site',
         url: 'https://cuddlduds.com',
         pinnedHeadlines: [
-          { slot: '01', text: 'Cuddl Duds Official Site' },
-          { slot: '02', text: 'Official Cuddl Duds Store' },
-          { slot: '03', text: 'Shop Cuddl Duds Clothing' },
-          { slot: '04', text: 'Official Cuddl Duds Website' }
+          'Cuddl Duds Official Site',
+          'Official Cuddl Duds Store',
+          'Shop Cuddl Duds Clothing',
+          'Official Cuddl Duds Website'
         ],
         unpinnedHeadlines: [
-          { slot: '05', text: 'Warmth Built for Real Life' },
-          { slot: '06', text: 'The Leader in Warm Layering' },
-          { slot: '07', text: 'Over 50 Years of Comfort' },
-          { slot: '08', text: 'Live In Everyday Layers' },
-          { slot: '09', text: 'Head-to-Toe Cozy Comfort' },
-          { slot: '10', text: 'Signature Softness & Warmth' },
-          { slot: '11', text: 'Cozy Styles for Women & Men' },
-          { slot: '12', text: 'Explore The Full Collection' },
-          { slot: '13', text: 'Shop Tops, Bottoms & More' },
-          { slot: '14', text: 'Shop Authentic Direct Online' },
-          { slot: '15', text: 'Make Layering Your Lifestyle' }
+          'Warmth Built for Real Life',
+          'The Leader in Warm Layering',
+          'Over 50 Years of Comfort',
+          'Live In Everyday Layers',
+          'Head-to-Toe Cozy Comfort',
+          'Signature Softness & Warmth',
+          'Cozy Styles for Women & Men',
+          'Explore The Full Collection',
+          'Shop Tops, Bottoms & More',
+          'Shop Authentic Direct Online',
+          'Make Layering Your Lifestyle'
         ],
         descriptions: [
-          { slot: '01', text: 'Welcome to the official Cuddl Duds website. Shop authentic warm layers and cozy clothing.' },
-          { slot: '02', text: 'Shop official Cuddl Duds clothing online. Find quality, cozy styles for women and men.' },
-          { slot: '03', text: 'Cuddl Duds has led warm layering for over 50 years. Make layering your everyday lifestyle.' },
-          { slot: '04', text: 'Explore the full collection of warm, cozy layers. Head-to-toe comfort for everyday living.' }
+          'Welcome to the official Cuddl Duds website. Shop authentic warm layers and cozy clothing.',
+          'Shop official Cuddl Duds clothing online. Find quality, cozy styles for women and men.',
+          'Cuddl Duds has led warm layering for over 50 years. Make layering your everyday lifestyle.',
+          'Explore the full collection of warm, cozy layers. Head-to-toe comfort for everyday living.'
         ],
         sitelinks: [
           { title: "Women's Warm Layers", desc: "Shop ultra-soft base layers, fleece tops, and leggings." },
@@ -248,29 +224,29 @@
         query: 'cuddl duds clothing',
         url: 'https://cuddlduds.com › collections › all',
         pinnedHeadlines: [
-          { slot: '01', text: 'Cuddl Duds Base Layers' },
-          { slot: '02', text: 'Shop Cuddl Duds Fleecewear' },
-          { slot: '03', text: 'Cuddl Duds Thermal Underwear' },
-          { slot: '04', text: 'Cuddl Duds Tops & Pants' }
+          'Cuddl Duds Base Layers',
+          'Shop Cuddl Duds Fleecewear',
+          'Cuddl Duds Thermal Underwear',
+          'Cuddl Duds Tops & Pants'
         ],
         unpinnedHeadlines: [
-          { slot: '05', text: 'Warmth Without Any Bulk' },
-          { slot: '06', text: 'Ultra-Soft 4-Way Stretch' },
-          { slot: '07', text: 'Wear It Solo or Layer Up' },
-          { slot: '08', text: 'Warm, Warmer & Warmest' },
-          { slot: '09', text: 'Double-Brushed Softness' },
-          { slot: '10', text: 'Cozy Fleecewear with Stretch' },
-          { slot: '11', text: 'Everyday Outfits Made Cozy' },
-          { slot: '12', text: 'Petite, Plus & Tall Sizes' },
-          { slot: '13', text: 'Shop Best-Selling Layers' },
-          { slot: '14', text: 'Build Your Layering Lineup' },
-          { slot: '15', text: 'Find Your Perfect Base Layer' }
+          'Warmth Without Any Bulk',
+          'Ultra-Soft 4-Way Stretch',
+          'Wear It Solo or Layer Up',
+          'Warm, Warmer & Warmest',
+          'Double-Brushed Softness',
+          'Cozy Fleecewear with Stretch',
+          'Everyday Outfits Made Cozy',
+          'Petite, Plus & Tall Sizes',
+          'Shop Best-Selling Layers',
+          'Build Your Layering Lineup',
+          'Find Your Perfect Base Layer'
         ],
         descriptions: [
-          { slot: '01', text: 'Explore best-selling Cuddl Duds base layers, Fleecewear tops, thermal wear, and outfits.' },
-          { slot: '02', text: 'Substantial enough to wear solo, light enough to layer under your favorite winter outfits.' },
-          { slot: '03', text: 'Double-brushed for superior softness with flexible 4-way stretch that moves with you.' },
-          { slot: '04', text: 'A good outfit starts with a cozy first layer. Shop best-selling customer favorites online.' }
+          'Explore best-selling Cuddl Duds base layers, Fleecewear tops, thermal wear, and outfits.',
+          'Substantial enough to wear solo, light enough to layer under your favorite winter outfits.',
+          'Double-brushed for superior softness with flexible 4-way stretch that moves with you.',
+          'A good outfit starts with a cozy first layer. Shop best-selling customer favorites online.'
         ],
         sitelinks: [
           { title: "Fleecewear with Stretch", desc: "Double-brushed plush tops and bottoms for cold days." },
@@ -283,29 +259,29 @@
         query: 'cuddl duds pajamas',
         url: 'https://cuddlduds.com › collections › sleepwear',
         pinnedHeadlines: [
-          { slot: '01', text: 'Cuddl Duds Pajamas' },
-          { slot: '02', text: 'Shop Cuddl Duds Pajamas' },
-          { slot: '03', text: 'Cuddl Duds Pajama Sets' },
-          { slot: '04', text: 'Cuddl Duds Sleep Pants' }
+          'Cuddl Duds Pajamas',
+          'Shop Cuddl Duds Pajamas',
+          'Cuddl Duds Pajama Sets',
+          'Cuddl Duds Sleep Pants'
         ],
         unpinnedHeadlines: [
-          { slot: '05', text: 'Ultra-Soft Sleepwear & PJs' },
-          { slot: '06', text: 'Matching 2-Piece Pajama Sets' },
-          { slot: '07', text: 'Made for Every Type of Sleeper' },
-          { slot: '08', text: 'Cozy Warm or Cooling PJs' },
-          { slot: '09', text: 'Settle Into Cloud-Soft PJs' },
-          { slot: '10', text: 'Breathable Stretch Comfort' },
-          { slot: '11', text: 'Built for Slow Cozy Mornings' },
-          { slot: '12', text: 'Relaxed Fit Sleep Pants' },
-          { slot: '13', text: 'Petite, Plus & Standard Fits' },
-          { slot: '14', text: 'Comfort Day & Night' },
-          { slot: '15', text: 'Find Your Favorite New PJs' }
+          'Ultra-Soft Sleepwear & PJs',
+          'Matching 2-Piece Pajama Sets',
+          'Made for Every Type of Sleeper',
+          'Cozy Warm or Cooling PJs',
+          'Settle Into Cloud-Soft PJs',
+          'Breathable Stretch Comfort',
+          'Built for Slow Cozy Mornings',
+          'Relaxed Fit Sleep Pants',
+          'Petite, Plus & Standard Fits',
+          'Comfort Day & Night',
+          'Find Your Favorite New PJs'
         ],
         descriptions: [
-          { slot: '01', text: 'Turn your evening routine into a comfort ritual with ultra-soft Cuddl Duds pajama sets.' },
-          { slot: '02', text: 'Cozy warm or cooling: explore breathable sleepwear and pajama pants made for every sleeper.' },
-          { slot: '03', text: 'Reason enough for early-to-bed nights and slow mornings. Discover cloud-soft loungewear.' },
-          { slot: '04', text: 'From matching 2-piece PJ sets to relaxed sleep pants, find effortless nighttime comfort.' }
+          'Turn your evening routine into a comfort ritual with ultra-soft Cuddl Duds pajama sets.',
+          'Cozy warm or cooling: explore breathable sleepwear and pajama pants made for every sleeper.',
+          'Reason enough for early-to-bed nights and slow mornings. Discover cloud-soft loungewear.',
+          'From matching 2-piece PJ sets to relaxed sleep pants, find effortless nighttime comfort.'
         ],
         sitelinks: [
           { title: "Matching 2-Piece PJ Sets", desc: "Coordinated pajama sets for effortless bedtime comfort." },
@@ -318,29 +294,29 @@
         query: 'cuddl duds scrubs',
         url: 'https://cuddlduds.com › collections › scrubs',
         pinnedHeadlines: [
-          { slot: '01', text: 'Cuddl Duds Scrubs' },
-          { slot: '02', text: 'Shop Cuddl Duds Scrubs' },
-          { slot: '03', text: 'Cuddl Duds Scrub Pants' },
-          { slot: '04', text: 'Cuddl Duds Underscrubs' }
+          'Cuddl Duds Scrubs',
+          'Shop Cuddl Duds Scrubs',
+          'Cuddl Duds Scrub Pants',
+          'Cuddl Duds Underscrubs'
         ],
         unpinnedHeadlines: [
-          { slot: '05', text: 'Medical Scrubs & Base Layers' },
-          { slot: '06', text: 'Breathable Underscrub Tops' },
-          { slot: '07', text: 'Comfort for 12-Hour Shifts' },
-          { slot: '08', text: 'Flexible 4-Way Stretch' },
-          { slot: '09', text: 'Moisture-Wicking Soft Scrubs' },
-          { slot: '10', text: 'Deep Pockets & Smart Utility' },
-          { slot: '11', text: 'Holds Shape Through Shifts' },
-          { slot: '12', text: 'Layering for Long Shifts' },
-          { slot: '13', text: 'Flattering Fits Made to Move' },
-          { slot: '14', text: 'Super-Soft Easy-Care Scrubs' },
-          { slot: '15', text: 'Upgrade Your Shift Uniform' }
+          'Medical Scrubs & Base Layers',
+          'Breathable Underscrub Tops',
+          'Comfort for 12-Hour Shifts',
+          'Flexible 4-Way Stretch',
+          'Moisture-Wicking Soft Scrubs',
+          'Deep Pockets & Smart Utility',
+          'Holds Shape Through Shifts',
+          'Layering for Long Shifts',
+          'Flattering Fits Made to Move',
+          'Super-Soft Easy-Care Scrubs',
+          'Upgrade Your Shift Uniform'
         ],
         descriptions: [
-          { slot: '01', text: 'Cuddl Duds knows layers: discover super-soft medical scrubs, scrub pants, and underscrubs.' },
-          { slot: '02', text: 'Engineered with 4-way stretch and breathable softness for comfort on every 12-hour shift.' },
-          { slot: '03', text: 'Layer smoothly under your uniform with close-fitting, moisture-wicking underscrub tops.' },
-          { slot: '04', text: 'Designed with deep cargo pockets, pen slots, and badge loops. Shop Cuddl Duds scrubs now.' }
+          'Cuddl Duds knows layers: discover super-soft medical scrubs, scrub pants, and underscrubs.',
+          'Engineered with 4-way stretch and breathable softness for comfort on every 12-hour shift.',
+          'Layer smoothly under your uniform with close-fitting, moisture-wicking underscrub tops.',
+          'Designed with deep cargo pockets, pen slots, and badge loops. Shop Cuddl Duds scrubs now.'
         ],
         sitelinks: [
           { title: "Cargo Scrub Pants", desc: "Deep multi-compartment cargo pockets, pen slots & badge loops." },
@@ -351,12 +327,10 @@
       }
     };
 
-    // Helper: Pick random item from array
     function getRandom(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    // Helper: Pick N unique random items from array
     function getRandomSample(arr, n) {
       const shuffled = [...arr].sort(() => 0.5 - Math.random());
       return shuffled.slice(0, n);
@@ -365,39 +339,42 @@
     function shuffleCombination() {
       const seg = campaignData[currentSegment];
       const icon = document.getElementById('shuffle-icon');
+      const headlineEl = document.getElementById('ad-headline');
+      const descEl = document.getElementById('ad-description');
+
+      // Spin animation on icon
       icon.classList.remove('spin-animate');
-      void icon.offsetWidth; // trigger reflow
+      void icon.offsetWidth;
       icon.classList.add('spin-animate');
 
-      // 1. Pick 1 Position 1 Pinned Headline
-      const pinned = getRandom(seg.pinnedHeadlines);
+      // Quick smooth fade
+      headlineEl.classList.add('fade-out');
+      descEl.classList.add('fade-out');
 
-      // 2. Pick Unpinned Headlines
-      let headlineText = "";
-      let assemblyTrack = "";
+      setTimeout(() => {
+        // 1. Position 1: Pinned Anchor
+        const pinned = getRandom(seg.pinnedHeadlines);
 
-      if (currentDevice === 'desktop') {
-        const unpinned = getRandomSample(seg.unpinnedHeadlines, 2);
-        headlineText = `${pinned.text} | ${unpinned[0].text} | ${unpinned[1].text}`;
-        
-        // Pick 2 distinct descriptions
-        const descs = getRandomSample(seg.descriptions, 2);
-        document.getElementById('ad-description').innerText = `${descs[0].text} ${descs[1].text}`;
+        // 2. Positions 2 & 3: Unpinned
+        if (currentDevice === 'desktop') {
+          const unpinned = getRandomSample(seg.unpinnedHeadlines, 2);
+          headlineEl.innerText = `${pinned} | ${unpinned[0]} | ${unpinned[1]}`;
+          
+          const descs = getRandomSample(seg.descriptions, 2);
+          descEl.innerText = `${descs[0]} ${descs[1]}`;
+        } else {
+          const unpinned = getRandom(seg.unpinnedHeadlines);
+          headlineEl.innerText = `${pinned} | ${unpinned}`;
+          
+          const desc = getRandom(seg.descriptions);
+          descEl.innerText = desc;
+        }
 
-        assemblyTrack = `H1 [Slot ${pinned.slot} - Pinned] + H2 [Slot ${unpinned[0].slot}] + H3 [Slot ${unpinned[1].slot}] | D [Slot ${descs[0].slot}] + [Slot ${descs[1].slot}]`;
-      } else {
-        const unpinned = getRandom(seg.unpinnedHeadlines);
-        headlineText = `${pinned.text} | ${unpinned.text}`;
-        
-        // Pick 1 description
-        const desc = getRandom(seg.descriptions);
-        document.getElementById('ad-description').innerText = desc.text;
-
-        assemblyTrack = `H1 [Slot ${pinned.slot} - Pinned] + H2 [Slot ${unpinned.slot}] | D [Slot ${desc.slot}]`;
-      }
-
-      document.getElementById('ad-headline').innerText = headlineText;
-      document.getElementById('active-assembly-info').innerText = assemblyTrack;
+        headlineEl.classList.remove('fade-out');
+        descEl.classList.remove('fade-out');
+        headlineEl.classList.add('fade-in');
+        descEl.classList.add('fade-in');
+      }, 100);
     }
 
     function updateView() {
@@ -425,7 +402,6 @@
         }
       }
 
-      // Run shuffle for the new segment/device
       shuffleCombination();
     }
 
@@ -434,9 +410,9 @@
       ['core', 'general', 'sleepwear', 'scrubs'].forEach(s => {
         const btn = document.getElementById(`tab-${s}`);
         if (s === seg) {
-          btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 border border-indigo-200 text-indigo-700 transition";
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-900 shadow-sm transition";
         } else {
-          btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition";
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition";
         }
       });
       updateView();
@@ -447,11 +423,11 @@
       const btnDesk = document.getElementById('btn-desktop');
       const btnMob = document.getElementById('btn-mobile');
       if (device === 'desktop') {
-        btnDesk.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-slate-900 shadow-sm transition";
-        btnMob.className = "px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition";
+        btnDesk.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-900 shadow-sm transition";
+        btnMob.className = "px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition";
       } else {
-        btnDesk.className = "px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition";
-        btnMob.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-slate-900 shadow-sm transition";
+        btnDesk.className = "px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition";
+        btnMob.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-900 shadow-sm transition";
       }
       updateView();
     }
